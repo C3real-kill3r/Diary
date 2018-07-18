@@ -22,7 +22,6 @@ class Test_Diary(unittest.TestCase):
     		response= cs.get('/api/v1/get_one/1',)
     		self.assertEqual(response.status_code, 200)
 
-
     def test_register(self):
         with app.test_client() as r:
             response=r.get('/api/v1/register',)
