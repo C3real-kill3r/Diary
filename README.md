@@ -1,6 +1,6 @@
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/337dee8ee33f349ab94d)
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
-[![Coverage Status](https://coveralls.io/repos/github/C3real-kill3r/Diary/badge.svg?branch=master)](https://coveralls.io/github/C3real-kill3r/Diary?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/C3real-kill3r/Diary/badge.svg?branch=challenge2)](https://coveralls.io/github/C3real-kill3r/Diary?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/622cfadf6b42f5843d83/maintainability)](https://codeclimate.com/github/C3real-kill3r/Diary/maintainability)
 [![Build Status](https://travis-ci.org/C3real-kill3r/Diary.svg?branch=challenge2)](https://travis-ci.org/C3real-kill3r/Diary)
 # Diary

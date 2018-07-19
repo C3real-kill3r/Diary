@@ -9,3 +9,6 @@ install:
 
 scripts:
   - python test_my_diary.py
+
+after_success:
+  - coveralls
