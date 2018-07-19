@@ -60,7 +60,7 @@ After successful installation of the app;
 $sudo python3 diary.py
 ```
 *open postman
-*enter the home url in postman for the app to create the required tables on the database
+*enter the home url in postman to get started
 ```
 http://127.0.0.1:5000/api/v1/
 ```
