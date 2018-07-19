@@ -18,9 +18,9 @@ class Test_Diary(unittest.TestCase):
     		self.assertEqual(response.status_code, 200)
 
     def test_comment_single(self):
-    	with app.test_client() as scomment:
-    		response= scomment.get('/api/v1/get_one/1',)
-    		self.assertEqual(response.status_code, 200)
+        scomment=app.test_client()
+        response= scomment.get('/api/v1/get_one/1',)
+        self.assertEqual(response.status_code, 200)
 
     def test_register(self):
         with app.test_client() as r:
