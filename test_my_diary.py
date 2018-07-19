@@ -42,8 +42,7 @@ class Test_Diary(unittest.TestCase):
 
     def test_logout(self):
         with app.test_client() as lo:
-            response= lo.get('/api/v1/logout',)
-            self.assertEqual(response.status_code, 200)
+            self.assertTrue(lo.get('/api/v1/logout',).status_code, 200)
 
 if __name__=='__main__':
     unittest.main()
