@@ -13,13 +13,13 @@ class Test_Diary(unittest.TestCase):
         	self.assertEqual(response.status_code, 404)
    
     def test_comment(self):
-    	with app.test_client() as c:
-    		response= c.get('/api/v1/get_all',)
+    	with app.test_client() as comment:
+    		response= comment.get('/api/v1/get_all',)
     		self.assertEqual(response.status_code, 200)
 
     def test_comment_single(self):
-    	with app.test_client() as cs:
-    		response= cs.get('/api/v1/get_one/1',)
+    	with app.test_client() as scomment:
+    		response= scomment.get('/api/v1/get_one/1',)
     		self.assertEqual(response.status_code, 200)
 
     def test_register(self):
