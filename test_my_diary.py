@@ -11,6 +11,9 @@ class Test_Diary(unittest.TestCase):
         with app.test_client() as h:
         	response = h.get('/ap1/v1/')
         	self.assertEqual(response.status_code, 404)
+
+    def test_wrongmethod(self):
+        self.assertEqual(app.test_client().post('/api/v1/').status_code, 405)
    
     def test_comment(self):
         comment=app.test_client()
