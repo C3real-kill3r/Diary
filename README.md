@@ -18,7 +18,6 @@ download the zip folder into your computer.
 *Python IDE (preferably visual studio code or sublime)
 *Virtual environment
 
-
 ### Installing
 *extract the files from the zip folder into another folder within the computer.
 
