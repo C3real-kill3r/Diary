@@ -11,7 +11,7 @@ app.config['SECRET_KEY'] = 'brybzlee'
 #home page route
 @app.route ('/api/v1/',methods=['GET'])
 def home():
-    return jsonify({'message' : 'welcome to your diary'})
+    return jsonify({'message' : 'welcome to your diary'}),200
 
 #registering a new user 
 @app.route ('/api/v1/register',methods=['POST'])
@@ -23,9 +23,9 @@ def register():
 
     if username not in user:#checks if the username already exists
         user.update({username:{"name":name,"email":email,"password":password}})
-        return jsonify(user)
+        return jsonify(user),200
     else:
-            return jsonify({'message' : 'username already exist'})
+            return jsonify({'message' : 'username already exist'}),409
 
 def login_authorization(username, password):
     if username in user:
@@ -46,7 +46,7 @@ def logged_in(f):
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'logged_in' not in session:
-            return jsonify({'message' : 'please login to continue'})
+            return jsonify({'message' : 'please login to continue'}),401
         else:
             return f(*args, **kwargs)
     return wrap
@@ -58,9 +58,9 @@ def login():
     if login_authorization(username, password):
         session['logged_in'] = True
         session['username'] = username
-        return jsonify({'message' : 'welcome to your diary'}) 
+        return jsonify({'message' : 'welcome to your diary'}),200 
     else:
-        return jsonify({'message' : 'invalid credentials'})
+        return jsonify({'message' : 'invalid credentials'}),401
 
 #making an entry
 @app.route ('/api/v1/make_entry',methods=['POST'])
@@ -71,7 +71,7 @@ def make_entry():
     if username not in diary_content:
         diary_content.update({username:[]})
     diary_content[username].append(entry)
-    return jsonify({'message' : 'diary successfully updated'})
+    return jsonify({'message' : 'diary successfully updated'}),200
 
 #displaying all entries
 @app.route ('/api/v1/get_all',methods=['GET'])
@@ -81,14 +81,14 @@ def get_all():
     output={}
     for each in diary_content[username]:
         output.update({diary_content[username].index(each)+1:each})#displays all the entries by the user and updates a positional value by adding 1 to the index 
-    return jsonify (output)
+    return jsonify (output),200
 
 #displaying one entry
 @app.route ('/api/v1/get_one/<int:entryID>',methods=['GET'])
 @logged_in
 def get_one(entryID):
     username=session.get('username')#get's username from session
-    return jsonify({entryID:diary_content[username][entryID-1]})#displays the entry whose index in the list is less by 1 from the number entered as entryID
+    return jsonify({entryID:diary_content[username][entryID-1]}),200#displays the entry whose index in the list is less by 1 from the number entered as entryID
 
 #updating an already existing entry into the diary
 @app.route ('/api/v1/modify_entry/<int:entryID>',methods=['PUT'])
@@ -98,7 +98,7 @@ def modify_entry(entryID):
     username=session.get('username')
     old=diary_content[username][entryID-1]
     replace (old, entry,diary_content[username])#invokes the replace function
-    return jsonify({'message' :'entry successfully modified'})
+    return jsonify({'message' :'entry successfully modified'}),200
 
 #deleting a single entry by a user
 @app.route ('/api/v1/delete_entry/<int:entryID>',methods=['DELETE'])
@@ -106,14 +106,14 @@ def modify_entry(entryID):
 def delete_entry(entryID):
     username=session.get('username')#get's username from the username stored in session
     del diary_content[username][entryID-1]#deletes the entry whose index in the list is less by 1 from the number entered as entryID
-    return jsonify ({'message' : 'succesfully deleted'})
+    return jsonify ({'message' : 'succesfully deleted'}),200
 
 #ending a user session 
 @app.route ('/api/v1/logout',methods=['GET'])
 @logged_in
 def logout():
     session.clear()
-    return jsonify({'message' : 'you are successfully logged out'})
+    return jsonify({'message' : 'you are successfully logged out'}),200
 
 
 #script initialization

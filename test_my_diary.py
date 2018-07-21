@@ -1,5 +1,4 @@
 import unittest
-import json
 from diary import *
 
 class Test_Diary(unittest.TestCase):
@@ -18,23 +17,23 @@ class Test_Diary(unittest.TestCase):
     def test_comment(self):
         comment=app.test_client()
         response= comment.get('/api/v1/get_all',)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 401)
 
     def test_comment_single(self):
         scomment=app.test_client()
-        self.assertEqual(scomment.get('/api/v1/get_one/1',).status_code, 200)
+        self.assertEqual(scomment.get('/api/v1/get_one/1',).status_code, 401)
 
     def test_register(self):
         with app.test_client() as r:
             response=r.get('/api/v1/register',)
             self.assertEqual(response.status_code, 405)
-            self.assertEqual(r.post('/api/v1/login', json={"name":"brian ryb","username":"brybz","email":"brybzi@gmail.com","password":"1234",}).status_code, 200)
+            self.assertEqual(r.post('/api/v1/login', json={"name":"brian ryb","username":"brybz","email":"brybzi@gmail.com","password":"1234",}).status_code, 401)
 
     def test_login(self):
         with app.test_client() as l:
             response=l.get('/api/v1/login',)
             self.assertEqual(response.status_code, 405)
-            self.assertEqual(l.post('/api/v1/login', json={"username":"brybz","password":"1234",}).status_code, 200)
+            self.assertEqual(l.post('/api/v1/login', json={"username":"brybz","password":"1234",}).status_code, 401)
 
     def test_make_entry(self):
         with app.test_client() as m:
@@ -52,8 +51,8 @@ class Test_Diary(unittest.TestCase):
     def test_logout(self):
         with app.test_client() as test:
             response = test.get('/api/v1/logout')
-            self.assertEqual(response.status_code, 200)
-            self.assertEqual(test.get('/api/v1/get_all').status_code,200)
+            self.assertEqual(response.status_code, 401)
+            self.assertEqual(test.get('/api/v1/get_all').status_code, 401)
 
 if __name__=='__main__':
     unittest.main()
