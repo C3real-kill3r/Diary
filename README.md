@@ -7,7 +7,7 @@
 # Diary
 
 an online journal where users can pen down their thoughts and feelings.
-## Getting Started
+## Getting[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/337dee8ee33f349ab94d) Started
 
 download the zip folder into your computer.
 
