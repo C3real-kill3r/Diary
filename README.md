@@ -4,10 +4,11 @@
 [![PyPI version](https://badge.fury.io/py/sublime.svg)](https://badge.fury.io/py/sublime)
 [![Maintainability](https://api.codeclimate.com/v1/badges/622cfadf6b42f5843d83/maintainability)](https://codeclimate.com/github/C3real-kill3r/Diary/maintainability)
 [![Build Status](https://travis-ci.org/C3real-kill3r/Diary.svg?branch=challenge2)](https://travis-ci.org/C3real-kill3r/Diary)
+![Coveralls github](https://img.shields.io/coveralls/github/jekyll/jekyll.svg)
 # Diary
 
 an online journal where users can pen down their thoughts and feelings.
-## Getting[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/337dee8ee33f349ab94d) Started
+## Getting Started
 
 download the zip folder into your computer.
 
