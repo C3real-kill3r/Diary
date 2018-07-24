@@ -4,7 +4,7 @@
 [![PyPI version](https://badge.fury.io/py/sublime.svg)](https://badge.fury.io/py/sublime)
 [![Maintainability](https://api.codeclimate.com/v1/badges/622cfadf6b42f5843d83/maintainability)](https://codeclimate.com/github/C3real-kill3r/Diary/maintainability)
 [![Build Status](https://travis-ci.org/C3real-kill3r/Diary.svg?branch=challenge2)](https://travis-ci.org/C3real-kill3r/Diary)
-![Coveralls github](https://img.shields.io/coveralls/github/jekyll/jekyll.svg)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/622cfadf6b42f5843d83/test_coverage)](https://codeclimate.com/github/C3real-kill3r/Diary/test_coverage)
 
 # Diary
 
