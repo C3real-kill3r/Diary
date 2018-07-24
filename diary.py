@@ -30,7 +30,7 @@ def register():
 
 def login_authorization(username, password):
     if username in USER:
-        if password == user[username]["password"]:
+        if password == USER[username]["password"]:
             return True
     return False
 
@@ -85,28 +85,28 @@ def get_all():
     return jsonify(output), 200
 
 #displaying one entry
-@app.route('/api/v1/get_one/<int:entryID>', methods=['GET'])
+@app.route('/api/v1/get_one/<int:entry_id>', methods=['GET'])
 @logged_in
-def get_one(entryID):
+def get_one(entry_id):
     username = session.get('username')#get's username from session
-    return jsonify({entryID:DIARY_CONTENT[username][entryID-1]}), 200#displays the entry whose index in the list is less by 1 from the number entered as entryID
+    return jsonify({entry_id:DIARY_CONTENT[username][entry_id-1]}), 200#displays the entry whose index in the list is less by 1 from the number entered as entry_id
 
 #updating an already existing entry into the diary
-@app.route('/api/v1/modify_entry/<int:entryID>', methods=['PUT'])
+@app.route('/api/v1/modify_entry/<int:entry_id>', methods=['PUT'])
 @logged_in
-def modify_entry(entryID):
+def modify_entry(entry_id):
     entry = request.get_json()["entry"]
     username = session.get('username')
-    old = DIARY_CONTENT[username][entryID-1]
+    old = DIARY_CONTENT[username][entry_id-1]
     replace(old, entry, DIARY_CONTENT[username])#invokes the replace function
     return jsonify({'message' :'entry successfully modified'}), 200
 
 #deleting a single entry by a user
-@app.route('/api/v1/delete_entry/<int:entryID>', methods=['DELETE'])
+@app.route('/api/v1/delete_entry/<int:entry_id>', methods=['DELETE'])
 @logged_in
-def delete_entry(entryID):
+def delete_entry(entry_id):
     username = session.get('username')#get's username from the username stored in session
-    del DIARY_CONTENT[username][entryID-1]#deletes the entry whose index in the list is less by 1 from the number entered as entryID
+    del DIARY_CONTENT[username][entry_id-1]#deletes the entry whose index in the list is less by 1 from the number entered as entry_id
     return jsonify({'message' : 'succesfully deleted'}), 200
 
 #ending a user session 
