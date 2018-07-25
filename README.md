@@ -63,6 +63,7 @@ $sudo python3 diary.py
 *press the run in postman button to populate your postman.
 
 *if the variable environment doesn't get automatically configured in your post man;
+
 1.type this on your login route under test;
 ```
 var data = JSON.parse(responseBody);
