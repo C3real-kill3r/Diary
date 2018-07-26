@@ -36,8 +36,12 @@ class Test_Users(unittest.TestCase):
 
     def test_view_all(self):
         with app.test_client() as c:
-            response= c.get('/api/v2/view_all',)
+            response = c.get('/api/v2/view_all',)
             self.assertEqual(response.status_code, 403)
+
+    def test_logout(self):
+        lgout = app.test_client()
+        self.assertEqual(lgout.get('/api/v2/logout').status_code, 200)
 
     def test_comment_view_one(self):
         with app.test_client() as cs:
