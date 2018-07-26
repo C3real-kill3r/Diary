@@ -30,28 +30,30 @@ class Users():
 
 	@users.route('/register', methods=['POST'])
 	def register():
-		fname = request.get_json()["fname"]
-		lname = request.get_json()["lname"]
-		email = request.get_json()["email"]
-		username = request.get_json()["username"]
-		password = request.get_json()["password"]
-		con_password = request.get_json()["confirm password"]
-		hash1 = make_pswd_hash(password)
-		if password != con_password:
-			return jsonify({'message':'password does not match'}), 403
-		else:
-			cur.execute("SELECT * FROM users WHERE username = '"+username+"'")
-			if cur.fetchone() is None:
-				if validate_emal(email):
-					cur.execute("INSERT INTO users(fname,lname,username,email,password)VALUES(%s, %s, %s, %s, %s);",\
-						(fname, lname, username, email, hash1))
-				else:
-					return jsonify({'message':'invalid email format!!'})
+		try:
+			fname = request.get_json()["fname"]
+			lname = request.get_json()["lname"]
+			email = request.get_json()["email"]
+			username = request.get_json()["username"]
+			password = request.get_json()["password"]
+			con_password = request.get_json()["confirm password"]
+			hash1 = make_pswd_hash(password)
+			if password != con_password:
+				return jsonify({'message':'password does not match'}), 403
 			else:
-				return jsonify({'message':'username exists'}), 409
-			connection.commit()
-			return jsonify({'message' : 'you are succesfully registered'})
-
+				cur.execute("SELECT * FROM users WHERE username = '"+username+"'")
+				if cur.fetchone() is None:
+					if validate_emal(email):
+						cur.execute("INSERT INTO users(fname,lname,username,email,password)VALUES(%s, %s, %s, %s, %s);",\
+							(fname, lname, username, email, hash1))
+					else:
+						return jsonify({'message':'invalid email format!!'})
+				else:
+					return jsonify({'message':'username exists'}), 409
+				connection.commit()
+				return jsonify({'message' : 'you are succesfully registered'})
+		except KeyError:
+			return jsonify({'message':'fill all the fields'}), 406
 
 	@users.route('/login', methods=['POST'])
 	def login():

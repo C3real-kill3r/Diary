@@ -42,8 +42,11 @@ class Entries():
 		username=data['username']	
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"'")
 		result=cur.fetchall()
-		connection.commit()
-		return jsonify(result),200
+		if len (result) == 0:
+			return jsonify ({'message':'you have no comments yet'}), 200
+		else:
+			connection.commit()
+			return jsonify(result),200
 
 	@entries.route('/view_one/<int:entryID>', methods=['GET'])
 	def view_one(entryID):
@@ -72,9 +75,9 @@ class Entries():
 			else:
 				return jsonify({'message':'not successfull, the comment is overdue'}),403
 		else:
-			return jsonify({'message':'enrtry does not exist!!'}),404
+			return jsonify({'message':'enrtry does not exist!!'}) ,404
 		connection.commit()
-		return jsonify({'message':'entry successfully modified!!'}),200
+		return jsonify({'message':'entry successfully modified!!'}), 200
 
 	@entries.route('/delete_entry/<int:entryID>', methods=['DELETE'])
 	def delete_entry(entryID):
@@ -83,8 +86,8 @@ class Entries():
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		result = cur.fetchone()
 		if result is None:
-			return jsonify({'message':'this operation is not allowed'}),404
+			return jsonify({'message':'this comment does exist'}), 404
 		else:
 			cur.execute("DELETE FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		connection.commit()
-		return jsonify({'message':'entry successfully deleted!!'}),200
+		return jsonify({'message':'entry successfully deleted!!'}), 200
