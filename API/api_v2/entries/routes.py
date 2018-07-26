@@ -24,7 +24,7 @@ def require_token(f):
 
 class Entries():
 
-	@entries.route('/api/v2/make_entry', methods=['POST'])
+	@entries.route('/make_entry', methods=['POST'])
 	@require_token
 	def make_entry():
 		title = request.get_json()["title"]
@@ -35,7 +35,7 @@ class Entries():
 		connection.commit()
 		return jsonify({'message':'entry successfully posted!!'}),200
 
-	@entries.route('/api/v2/view_all', methods=['GET'])
+	@entries.route('/view_all', methods=['GET'])
 	@require_token
 	def view_all():
 		data=jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
@@ -45,7 +45,7 @@ class Entries():
 		connection.commit()
 		return jsonify(result),200
 
-	@entries.route('/api/v2/view_one/<int:entryID>', methods=['GET'])
+	@entries.route('/view_one/<int:entryID>', methods=['GET'])
 	def view_one(entryID):
 		data = jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
 		username = data['username']
@@ -58,7 +58,7 @@ class Entries():
 			return jsonify({'message':'wrong entry,the comment does not exist!!'}), 401
 		connection.commit()
 
-	@entries.route ('/api/v2/modify_entry/<int:entryID>',methods=['PUT'])
+	@entries.route ('/modify_entry/<int:entryID>',methods=['PUT'])
 	def modify_entry(entryID):
 		comment = request.get_json()["comment"]
 		data = jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
@@ -70,20 +70,20 @@ class Entries():
 			if str(result[4]).split()[0] == today[0]:
 				cur.execute("UPDATE entries SET comment='"+comment+"' WHERE entryID='"+str(entryID)+"'")
 			else:
-				return jsonify({'message':'not success, the comment is overdue'}),403
+				return jsonify({'message':'not successfull, the comment is overdue'}),403
 		else:
 			return jsonify({'message':'operation not successfull!!'}),403
 		connection.commit()
 		return jsonify({'message':'entry successfully modified!!'}),200
 
-	@entries.route('/api/v2/delete_entry/<int:entryID>', methods=['DELETE'])
+	@entries.route('/delete_entry/<int:entryID>', methods=['DELETE'])
 	def delete_entry(entryID):
 		data = jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
 		username = data['username']
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		result = cur.fetchone()
 		if result is None:
-			return jsonify({'message':'the operation is not allowed'}),403
+			return jsonify({'message':'this operation is not allowed'}),403
 		else:
 			cur.execute("DELETE FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		connection.commit()

@@ -28,7 +28,7 @@ def validate_emal(email):
 
 class Users():
 
-	@users.route('/api/v2/register', methods=['POST'])
+	@users.route('/register', methods=['POST'])
 	def register():
 		fname = request.get_json()["fname"]
 		lname = request.get_json()["lname"]
@@ -53,7 +53,7 @@ class Users():
 			return jsonify({'message' : 'you are succesfully registered'})
 
 
-	@users.route('/api/v2/login', methods=['POST'])
+	@users.route('/login', methods=['POST'])
 	def login():
 		username = request.get_json()["username"]
 		password = request.get_json()["password"]
@@ -71,7 +71,7 @@ class Users():
 			return jsonify({'message' : 'Username does not exist'}), 401
 		cur.close()
 
-	@users.route ('/api/v2/get_user',methods=['GET'])
+	@users.route ('/get_user',methods=['GET'])
 	def get_user():
 		data=jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
 		username=data['username']
@@ -83,6 +83,6 @@ class Users():
 			return jsonify({'message':'user does not exist in the database'})
 		connection.commit()
 
-	@users.route ('/api/v2/logout',methods=['GET'])
+	@users.route ('/logout',methods=['GET'])
 	def logout():
 		return jsonify({'message':'you are successfully logged out!!'}), 200
