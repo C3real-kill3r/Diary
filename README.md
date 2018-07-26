@@ -62,6 +62,7 @@ After successful installation of the app;
 $sudo python3 diary.py
 ```
 *open postgresSQl and create a database called "diary"
+
 *on the models file edit this with your corresponding details
 ```
 connection = psycopg2.connect("dbname='diary' user='{your_username}' host='localhost' password='{your_password}' port='5432'")
