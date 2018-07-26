@@ -14,6 +14,7 @@ download the zip folder into your computer.
 *Postman
 *Python (preferably version 3.6 or higher)
 *Python IDE (preferably visual studio code or sublime)
+*PostgresSQL
 *Virtual environment
 
 ### Installing
@@ -59,6 +60,11 @@ After successful installation of the app;
 *linux
 ```
 $sudo python3 diary.py
+```
+*open postgresSQl and create a database called "diary"
+*on the models file edit this with your corresponding details
+```
+connection = psycopg2.connect("dbname='diary' user='{your_username}' host='localhost' password='{your_password}' port='5432'")
 ```
 *open postman
 *press the run in postman button to populate your postman.
