@@ -70,6 +70,7 @@ $sudo python3 diary.py
 connection = psycopg2.connect("dbname='diary' user='{your_username}' host='localhost' password='{your_password}' port='5432'")
 ```
 *open postman
+
 *press the run in postman button to populate your postman.
 
 *if the variable environment doesn't get automatically configured in your post man;
