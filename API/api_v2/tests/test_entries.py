@@ -24,6 +24,10 @@ class Test_Entries(unittest.TestCase):
             response= c.get('/api/v2/view_all',)
             self.assertEqual(response.status_code, 403)
 
+    def test_make_entry(self):
+        testr = app.test_client()
+        self.assertEqual(testr.post('/api/v2/make_entry', json={"title":"brybz", "comment":"1234",}).status_code, 403)
+
     def test_comment_view_one(self):
         with app.test_client() as cs:
             response = cs.get('/api/v2/view_one/1',)

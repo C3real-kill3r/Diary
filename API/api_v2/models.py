@@ -1,3 +1,4 @@
+import os
 import psycopg2
 
 connection = psycopg2.connect("dbname='diary' user='postgres' host='localhost' password='cocopine1' port='5432'")
