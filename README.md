@@ -6,7 +6,7 @@
 
 # Diary
 
-an online journal where users can pen down their thoughts and feelings.
+it's an online journal where users can pen down their thoughts and feelings.
 ## Getting Started
 
 download the zip folder into your computer.
