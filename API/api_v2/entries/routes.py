@@ -27,11 +27,11 @@ class Entries():
 	@entries.route('/make_entry', methods=['POST'])
 	@require_token
 	def make_entry():
-		title = request.get_json()["title"]
-		comment = request.get_json()["comment"]
+		title = request.get_json()["title"] #validate
+		comment = request.get_json()["comment"]#validate length
 		data = jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
 		username = data['username']
-		cur.execute("INSERT INTO entries(title,comment,username)VALUES(%s,%s,%s);",(title, comment,username))
+		cur.execute("INSERT INTO entries(title,comment,username)VALUES(%s, %s, %s);",(title, comment,username))
 		connection.commit()
 		return jsonify({'message':'entry successfully posted!!'}),200
 
@@ -60,7 +60,7 @@ class Entries():
 
 	@entries.route ('/modify_entry/<int:entryID>',methods=['PUT'])
 	def modify_entry(entryID):
-		comment = request.get_json()["comment"]
+		comment = request.get_json()["comment"]#validate length of comment
 		data = jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
 		username = data['username']
 		today = str(datetime.datetime.today()).split()
@@ -72,7 +72,7 @@ class Entries():
 			else:
 				return jsonify({'message':'not successfull, the comment is overdue'}),403
 		else:
-			return jsonify({'message':'operation not successfull!!'}),403
+			return jsonify({'message':'enrtry does not exist!!'}),404
 		connection.commit()
 		return jsonify({'message':'entry successfully modified!!'}),200
 
@@ -83,7 +83,7 @@ class Entries():
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		result = cur.fetchone()
 		if result is None:
-			return jsonify({'message':'this operation is not allowed'}),403
+			return jsonify({'message':'this operation is not allowed'}),404
 		else:
 			cur.execute("DELETE FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		connection.commit()
