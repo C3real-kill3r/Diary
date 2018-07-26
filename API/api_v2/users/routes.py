@@ -26,7 +26,7 @@ def validate_emal(email):
 	else:
 		return True
 
-class Users():
+class Users:
 
 	@users.route('/register', methods=['POST'])
 	def register():
@@ -47,11 +47,11 @@ class Users():
 						cur.execute("INSERT INTO users(fname,lname,username,email,password)VALUES(%s, %s, %s, %s, %s);",\
 							(fname, lname, username, email, hash1))
 					else:
-						return jsonify({'message':'invalid email format!!'})
+						return jsonify({'message':'invalid email format!!'}), 403
 				else:
 					return jsonify({'message':'username exists'}), 409
 				connection.commit()
-				return jsonify({'message' : 'you are succesfully registered'})
+				return jsonify({'message' : 'you are succesfully registered'}), 200
 		except KeyError:
 			return jsonify({'message':'fill all the fields'}), 406
 
@@ -82,7 +82,7 @@ class Users():
 		if result is not None:
 			return jsonify (result), 200
 		else:
-			return jsonify({'message':'user does not exist in the database'})
+			return jsonify({'message':'user does not exist in the database'}), 404
 		connection.commit()
 
 	@users.route ('/logout',methods=['GET'])

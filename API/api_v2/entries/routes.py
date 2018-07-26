@@ -22,7 +22,7 @@ def require_token(f):
 
     return wrap
 
-class Entries():
+class Entries:
 
 	@entries.route('/make_entry', methods=['POST'])
 	@require_token
