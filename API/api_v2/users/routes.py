@@ -26,6 +26,12 @@ def validate_emal(email):
 	else:
 		return True
 
+def validate_password(password):
+    if not re.match(r'^(?=\S{6,20}$)(?=.*?\d)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[^A-Za-z\s0-9])', password):
+    	return False
+    else:
+    	return True
+
 class Users:
 
 	@users.route('/register', methods=['POST'])
@@ -51,11 +57,14 @@ class Users:
 			else:
 				cur.execute("SELECT * FROM users WHERE username = '"+username+"'")
 				if cur.fetchone() is None:
-					if validate_emal(email):
-						cur.execute("INSERT INTO users(fname,lname,username,email,password)VALUES(%s, %s, %s, %s, %s);",\
-							(fname, lname, username, email, hash1))
+					if validate_password(password):
+						if validate_emal(email):
+							cur.execute("INSERT INTO users(fname,lname,username,email,password)VALUES(%s, %s, %s, %s, %s);",\
+								(fname, lname, username, email, hash1))
+						else:
+							return jsonify({'message':'invalid email format!!'}), 403
 					else:
-						return jsonify({'message':'invalid email format!!'}), 403
+						return jsonify({'message':'invalid password format!!'}), 403
 				else:
 					return jsonify({'message':'username exists'}), 409
 				connection.commit()
