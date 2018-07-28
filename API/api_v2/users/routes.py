@@ -51,7 +51,7 @@ class Users:
 			if len(email) == 0:
 				return jsonify({'message':'please fill your email'}), 406
 			if len(password) == 0:
-				return jsonify({'message':'please fill your first password'}), 406
+				return jsonify({'message':'please fill your password'}), 406
 			if password != con_password:
 				return jsonify({'message':'password does not match'}), 406
 			else:
