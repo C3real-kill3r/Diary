@@ -53,7 +53,7 @@ class Users:
 			if len(password) == 0:
 				return jsonify({'message':'please fill your first password'}), 406
 			if password != con_password:
-				return jsonify({'message':'password does not match'}), 403
+				return jsonify({'message':'password does not match'}), 406
 			else:
 				cur.execute("SELECT * FROM users WHERE username = '"+username+"'")
 				if cur.fetchone() is None:
