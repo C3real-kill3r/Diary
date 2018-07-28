@@ -33,7 +33,7 @@ class Entries:
 		username = data['username']
 		cur.execute("INSERT INTO entries(title,comment,username)VALUES(%s, %s, %s);",(title, comment,username))
 		connection.commit()
-		return jsonify({'message':'entry successfully posted!!'}),200
+		return jsonify({'message':'entry successfully posted!!'}), 200
 
 	@entries.route('/view_all', methods=['GET'])
 	@require_token

@@ -38,6 +38,14 @@ class Users:
 			password = request.get_json()["password"]
 			con_password = request.get_json()["confirm password"]
 			hash1 = make_pswd_hash(password)
+			if len(fname) == 0:
+				return jsonify({'message':'please fill your first name'}), 406
+			if len(lname) == 0:
+				return jsonify({'message':'please fill your last name'}), 406
+			if len(email) == 0:
+				return jsonify({'message':'please fill your email'}), 406
+			if len(password) == 0:
+				return jsonify({'message':'please fill your first password'}), 406
 			if password != con_password:
 				return jsonify({'message':'password does not match'}), 403
 			else:
