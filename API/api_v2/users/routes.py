@@ -44,14 +44,8 @@ class Users:
 			password = request.get_json()["password"]
 			con_password = request.get_json()["confirm password"]
 			hash1 = make_pswd_hash(password)
-			if len(fname) == 0:
-				return jsonify({'message':'please fill your first name'}), 406
-			if len(lname) == 0:
-				return jsonify({'message':'please fill your last name'}), 406
-			if len(email) == 0:
-				return jsonify({'message':'please fill your email'}), 406
-			if len(password) == 0:
-				return jsonify({'message':'please fill your password'}), 406
+			if len(fname) == 0 or len(lname) == 0 or len(email) == 0 or len(username) == 0 or len(password) == 0:
+				return jsonify({'message':'please fill in all the entries'}), 406
 			if password != con_password:
 				return jsonify({'message':'password does not match'}), 406
 			else:
@@ -70,12 +64,14 @@ class Users:
 				connection.commit()
 				return jsonify({'message' : 'you are succesfully registered'}), 200
 		except KeyError:
-			return jsonify({'message':'fill all the fields'}), 406
+			return jsonify({'message':'ensure all entry fields are available'}), 406
 
 	@users.route('/login', methods=['POST'])
 	def login():
 		username = request.get_json()["username"]
 		password = request.get_json()["password"]
+		if len(username) == 0 or len(password) == 0:
+			return jsonify({'message':'please fill in all the entries'}), 406
 		cur.execute("SELECT COUNT(1) FROM users WHERE username = '"+username+"'") #checks if username is in the database
 		if cur.fetchone()[0]:
 			cur.execute("SELECT * FROM users WHERE username = '"+username+"'")
