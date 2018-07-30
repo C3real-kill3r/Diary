@@ -27,8 +27,8 @@ class Entries:
 	@entries.route('/make_entry', methods=['POST'])
 	@require_token
 	def make_entry():
-		title = request.get_json()["title"] #validate
-		comment = request.get_json()["comment"]#validate length
+		title = request.get_json()["title"].strip() #validate
+		comment = request.get_json()["comment"].strip()#validate length
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		cur.execute("INSERT INTO entries(title,comment,username)VALUES(%s, %s, %s);",(title, comment,username))
@@ -63,7 +63,7 @@ class Entries:
 
 	@entries.route ('/modify_entry/<int:entryID>',methods=['PUT'])
 	def modify_entry(entryID):
-		comment = request.get_json()["comment"]#validate length of comment
+		comment = request.get_json()["comment"].strip()#validate length of comment
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		today = str(datetime.datetime.today()).split()

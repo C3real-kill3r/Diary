@@ -37,12 +37,12 @@ class Users:
 	@users.route('/register', methods=['POST'])
 	def register():
 		try:
-			fname = request.get_json()["fname"]
-			lname = request.get_json()["lname"]
-			email = request.get_json()["email"]
-			username = request.get_json()["username"]
-			password = request.get_json()["password"]
-			con_password = request.get_json()["confirm password"]
+			fname = request.get_json()["fname"].strip()
+			lname = request.get_json()["lname"].strip()
+			email = request.get_json()["email"].strip()
+			username = request.get_json()["username"].strip()
+			password = request.get_json()["password"].strip()
+			con_password = request.get_json()["confirm password"].strip()
 			hash1 = make_pswd_hash(password)
 			if len(fname) == 0 or len(lname) == 0 or len(email) == 0 or len(username) == 0 or len(password) == 0:
 				return jsonify({'message':'please fill in all the entries'}), 406
@@ -68,8 +68,8 @@ class Users:
 
 	@users.route('/login', methods=['POST'])
 	def login():
-		username = request.get_json()["username"]
-		password = request.get_json()["password"]
+		username = request.get_json()["username"].strip()
+		password = request.get_json()["password"].strip()
 		if len(username) == 0 or len(password) == 0:
 			return jsonify({'message':'please fill in all the entries'}), 406
 		cur.execute("SELECT COUNT(1) FROM users WHERE username = '"+username+"'") #checks if username is in the database
