@@ -88,7 +88,7 @@ class Users:
 
 	@users.route ('/get_user',methods=['GET'])
 	def get_user():
-		data=jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+		data=jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username=data['username']
 		cur.execute("SELECT * FROM users WHERE username='"+username+"'")
 		result=cur.fetchall()

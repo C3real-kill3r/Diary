@@ -13,7 +13,7 @@ entries = Blueprint('entries', __name__)
 def require_token(f):
     @wraps(f)
     def wrap(*k, **kk):
-        token = request.args.get('token') 
+        token = request.headers.get('x-access-token') 
 
         if not token:
             return jsonify({'message' : 'Token is missing!'}), 403
@@ -29,7 +29,7 @@ class Entries:
 	def make_entry():
 		title = request.get_json()["title"] #validate
 		comment = request.get_json()["comment"]#validate length
-		data = jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		cur.execute("INSERT INTO entries(title,comment,username)VALUES(%s, %s, %s);",(title, comment,username))
 		connection.commit()
@@ -38,7 +38,7 @@ class Entries:
 	@entries.route('/view_all', methods=['GET'])
 	@require_token
 	def view_all():
-		data=jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+		data=jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username=data['username']	
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"'")
 		result=cur.fetchall()
@@ -50,7 +50,7 @@ class Entries:
 
 	@entries.route('/view_one/<int:entryID>', methods=['GET'])
 	def view_one(entryID):
-		data = jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		cur.execute("SELECT COUNT(1) FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		if cur.fetchone()[0]:
@@ -64,7 +64,7 @@ class Entries:
 	@entries.route ('/modify_entry/<int:entryID>',methods=['PUT'])
 	def modify_entry(entryID):
 		comment = request.get_json()["comment"]#validate length of comment
-		data = jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		today = str(datetime.datetime.today()).split()
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
@@ -81,7 +81,7 @@ class Entries:
 
 	@entries.route('/delete_entry/<int:entryID>', methods=['DELETE'])
 	def delete_entry(entryID):
-		data = jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		result = cur.fetchone()
