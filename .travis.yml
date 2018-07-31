@@ -6,14 +6,10 @@ python:
 
 install:
   - pip install r requirements.txt
-  - pip install python-coveralls
-  - pip install coverage
-  - pip install nose
 
 scripts:
-  - python test_entries.py
-  - python test_users.py
-  - nosetests --with-coverage
+  - pytest test_entries.py
+  - pytest test_users.py
 
 after_success:
   - coveralls
