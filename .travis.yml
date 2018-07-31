@@ -7,9 +7,10 @@ python:
 install:
   - pip install r requirements.txt
 
+before_script:
+  - 
 scripts:
-  - pytest test_entries.py
-  - pytest test_users.py
+  - python -m unittest discover -v
 
 after_success:
   - coveralls
