@@ -11,7 +11,8 @@ before_script:
   - cd API/api_v2/tests
   - psql -c 'create database diary;' -U postgres
 script:
-  - python -m unittest discover -v
+  - pytest
+  - pytest --cov=app
 
 after_success:
   - coveralls
