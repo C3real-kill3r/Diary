@@ -16,15 +16,15 @@ class Test_Users(unittest.TestCase):
 
     def test_register(self):
         with app.test_client() as r:
-            response = r.get('/api/v2/register',)
+            response = r.get('/api/v2/auth/signup',)
             self.assertEqual(response.status_code, 405)
-            self.assertEqual(r.post('/api/v2/register', json={"fname":"brian", "lname":"ryb","username":"brybz",\
+            self.assertEqual(r.post('/api/v2/auth/signup', json={"fname":"brian", "lname":"ryb","username":"brybz",\
                 "email":"brybzi@gmail.com",\
-                "password":"1234", "confirm password":"1234"}).status_code, 500) 
+                "password":"1234", "confirm password":"1234"}).status_code, 409) 
 
     def test_login(self):
         logn = app.test_client()
-        self.assertEqual(logn.post('/api/v2/login', json={"username":"brybz", "password":"1234",}).status_code, 500)
+        self.assertEqual(logn.post('/api/v2/auth/login', json={"username":"brybz", "password":"1234",}).status_code, 200)
 
     def test_home(self):
         with app.test_client() as h:
@@ -36,7 +36,7 @@ class Test_Users(unittest.TestCase):
 
     def test_view_all(self):
         with app.test_client() as c:
-            response = c.get('/api/v2/view_all',)
+            response = c.get('/api/v2/entries',)
             self.assertEqual(response.status_code, 403)
 
     def test_logout(self):
@@ -45,7 +45,7 @@ class Test_Users(unittest.TestCase):
 
     def test_comment_view_one(self):
         with app.test_client() as cs:
-            response= cs.get('/api/v2/view_one/1',)
+            response= cs.get('/api/v2/entries/1',)
             self.assertEqual(response.status_code, 500)
 
 if __name__ == '__main__':

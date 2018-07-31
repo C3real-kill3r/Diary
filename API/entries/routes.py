@@ -24,7 +24,7 @@ def require_token(f):
 
 class Entries:
 
-	@entries.route('/make_entry', methods=['POST'])
+	@entries.route('/entries', methods=['POST'])
 	@require_token
 	def make_entry():
 		title = request.get_json()["title"].strip() #validate
@@ -35,7 +35,7 @@ class Entries:
 		connection.commit()
 		return jsonify({'message':'entry successfully posted!!'}), 200
 
-	@entries.route('/view_all', methods=['GET'])
+	@entries.route('/entries', methods=['GET'])
 	@require_token
 	def view_all():
 		data=jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
@@ -48,7 +48,7 @@ class Entries:
 			connection.commit()
 			return jsonify(result),200
 
-	@entries.route('/view_one/<int:entryID>', methods=['GET'])
+	@entries.route('/entries/<int:entryID>', methods=['GET'])
 	def view_one(entryID):
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
@@ -61,7 +61,7 @@ class Entries:
 			return jsonify({'message':'wrong entry,the comment does not exist!!'}), 401
 		connection.commit()
 
-	@entries.route ('/modify_entry/<int:entryID>',methods=['PUT'])
+	@entries.route ('/entries/<int:entryID>',methods=['PUT'])
 	def modify_entry(entryID):
 		comment = request.get_json()["comment"].strip()#validate length of comment
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
@@ -79,7 +79,7 @@ class Entries:
 		connection.commit()
 		return jsonify({'message':'entry successfully modified!!'}), 200
 
-	@entries.route('/delete_entry/<int:entryID>', methods=['DELETE'])
+	@entries.route('/entries/<int:entryID>', methods=['DELETE'])
 	def delete_entry(entryID):
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']

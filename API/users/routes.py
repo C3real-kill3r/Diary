@@ -34,7 +34,7 @@ def validate_password(password):
 
 class Users:
 
-	@users.route('/register', methods=['POST'])
+	@users.route('/auth/signup', methods=['POST'])
 	def register():
 		try:
 			fname = request.get_json()["fname"].strip()
@@ -66,7 +66,7 @@ class Users:
 		except KeyError:
 			return jsonify({'message':'ensure all entry fields are available'}), 406
 
-	@users.route('/login', methods=['POST'])
+	@users.route('/auth/login', methods=['POST'])
 	def login():
 		username = request.get_json()["username"].strip()
 		password = request.get_json()["password"].strip()
