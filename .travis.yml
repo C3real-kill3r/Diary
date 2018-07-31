@@ -2,12 +2,14 @@ language: python
 
 python:
   - '3.4'
-
+services:
+  - postgresql
 install:
   - pip install -r requirements.txt
   - pip install pytest-cov
 before_script:
   - cd API/api_v2/tests
+  - psql -c 'create database diary;' -U postgres
 script:
   - python -m unittest discover -v
 
