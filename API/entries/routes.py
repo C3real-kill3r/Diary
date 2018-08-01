@@ -48,7 +48,8 @@ class Entries:
 			title = row[1]
 			time = row[4]
 			comment = row[3]
-			entry_output.update({"entry_id":entry_id, "username":username, "title":title, "comment":comment, "time":time})
+			if entry_id not in entry_output:
+				entry_output.update({entry_id:{"username":username, "title":title, "comment":comment, "time":time}})
 		if len (result) == 0:
 			return jsonify ({'message':'you have no comments yet'}), 200
 		else:
