@@ -27,8 +27,8 @@ class Entries:
 	@entries.route('/entries', methods=['POST'])
 	@require_token
 	def make_entry():
-		title = request.get_json()["title"].strip() #validate
-		comment = request.get_json()["comment"].strip()#validate length
+		title = request.get_json()["title"].strip() 
+		comment = request.get_json()["comment"].strip()
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		cur.execute("INSERT INTO entries(title,comment,username)VALUES(%s, %s, %s);",(title, comment,username))
@@ -38,15 +38,22 @@ class Entries:
 	@entries.route('/entries', methods=['GET'])
 	@require_token
 	def view_all():
-		data=jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
-		username=data['username']	
+		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
+		username = data['username']	
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"'")
-		result=cur.fetchall()
+		result = cur.fetchall()
+		entry_output = {}
+		for row in result:
+			entry_id = row[0]
+			title = row[1]
+			time = row[4]
+			comment = row[3]
+			entry_output.update({"entry_id":entry_id, "username":username, "title":title, "comment":comment, "time":time})
 		if len (result) == 0:
 			return jsonify ({'message':'you have no comments yet'}), 200
 		else:
 			connection.commit()
-			return jsonify(result),200
+			return jsonify(entry_output),200
 
 	@entries.route('/entries/<int:entryID>', methods=['GET'])
 	def view_one(entryID):
@@ -55,10 +62,15 @@ class Entries:
 		cur.execute("SELECT COUNT(1) FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		if cur.fetchone()[0]:
 			cur.execute("SELECT * FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
-			result = cur.fetchall()
-			return jsonify(result)
+			result = cur.fetchone()
+			entry_id = result[0]
+			title = result[1]
+			time = result[4]
+			comment = result[3]
+			entry_output = {"entry_id":entry_id, "username":username, "title":title, "comment":comment, "time":time }
+			return jsonify(entry_output)
 		else:
-			return jsonify({'message':'wrong entry,the comment does not exist!!'}), 401
+			return jsonify({'message':'wrong entry,the comment does not exist!!'}), 404
 		connection.commit()
 
 	@entries.route ('/entries/<int:entryID>',methods=['PUT'])

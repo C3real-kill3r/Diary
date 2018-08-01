@@ -58,7 +58,7 @@ class Users:
 						else:
 							return jsonify({'message':'invalid email format!!'}), 403
 					else:
-						return jsonify({'message':'invalid password format!!'}), 403
+						return jsonify({'message':'invalid format(must be 6 characters long with upper and lowercase letters, numbers and special characters) '}), 403
 				else:
 					return jsonify({'message':'username exists'}), 409
 				connection.commit()
@@ -91,9 +91,17 @@ class Users:
 		data=jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username=data['username']
 		cur.execute("SELECT * FROM users WHERE username='"+username+"'")
-		result=cur.fetchall()
+		result=cur.fetchone()
+		user_id = result[0]
+		fname = result[1]
+		lname = result[2]
+		username = result[3]
+		email = result [4]
+		password = result[5]
+		time = result[6]
+		user_details = {"user_id":user_id, "fname":fname, "lname":lname, "username":username, "email":email, "password":password, "time":time }
 		if result is not None:
-			return jsonify (result), 200
+			return jsonify (user_details), 200
 		else:
 			return jsonify({'message':'user does not exist in the database'}), 404
 		connection.commit()
