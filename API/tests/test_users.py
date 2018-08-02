@@ -10,7 +10,7 @@ from __init__ import *
 class Test_Users(unittest.TestCase):
 
     def setUp(self):
-        connection = psycopg2.connect(dbname='diary', user=DB_USER, host='localhost', password=DB_PASS, port='5432')
+        connection = psycopg2.connect(dbname='travis', user='travis', host='localhost', password='test', port='5432')
         with connection.cursor() as cursor:
             cursor.execute ("CREATE TABLE IF NOT EXISTS entries (entryID serial PRIMARY KEY,\
                 username varchar(200) NOT NULL, title varchar(50) NOT NULL,\
