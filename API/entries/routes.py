@@ -89,12 +89,19 @@ class Entry(Resource):
 		if result is not None:
 			if str(result[4]).split()[0] == today[0]:
 				cur.execute("UPDATE entries SET comment='"+comment+"' WHERE entryID='"+str(entryID)+"'")
+				cur.execute("SELECT * FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
+				result = cur.fetchone()
+				entry_id = result[0]
+				title = result[1]
+				time = result[4]
+				comment = result[3]
+				entry_output = {"entry_id":entry_id, "username":username, "title":title, "comment":comment, "time":time }
 			else:
 				return jsonify({'message':'not successfull, the comment is overdue'})
 		else:
 			return jsonify({'message':'enrtry does not exist!!'})
 		connection.commit()
-		return jsonify({'message':'entry successfully modified!!'})
+		return jsonify(entry_output)
 
 	def delete(self, entryID):
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
