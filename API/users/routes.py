@@ -1,4 +1,4 @@
-from flask import Flask, request , jsonify, Blueprint
+from flask import Flask, request, jsonify, Blueprint
 import re
 from __init__ import app
 import datetime
@@ -17,7 +17,7 @@ def make_pswd_hash(password):
 	return hashlib.sha256(str.encode(password)).hexdigest()
 
 def check_pswd_hash(password, hash):
-	if make_pswd_hash(password)==hash:
+	if make_pswd_hash(password) == hash:
 		return True
 
 	return False
