@@ -51,7 +51,10 @@ $source env/bin/activate
 ```
 $sudo pip3 install virtualenv
 ```
-
+*pip install the requirements in your virtual environment
+```
+pip install -r requirements.txt
+```
 ## Running the app
 
 After successful installation of the app;
@@ -66,9 +69,11 @@ $sudo python3 diary.py
 ```
 *open postgresSQl and create a database called "diary"
 
-*on the models file edit this with your corresponding details
+*create environment variables
 ```
-connection = psycopg2.connect("dbname='diary' user='{your_username}' host='localhost' password='{your_password}' port='5432'")
+set DB_NAME= enter your database name
+set DB_USER= enter your database username
+set DB_PASS= enter your database password
 ```
 *open postman
 
