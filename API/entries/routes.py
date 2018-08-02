@@ -2,12 +2,14 @@ from flask import Flask, request , jsonify, Blueprint
 import psycopg2
 from __init__ import app
 from functools import wraps
+from flask_restful import Api, Resource
 import datetime
 import jwt
 
 from models import *
 
 entries = Blueprint('entries', __name__)
+API = Api(entries)
 
 
 def require_token(f):
@@ -22,22 +24,20 @@ def require_token(f):
 
     return wrap
 
-class Entries:
+class Entries(Resource):
 
-	@entries.route('/entries', methods=['POST'])
 	@require_token
-	def make_entry():
+	def post(self):
 		title = request.get_json()["title"].strip() 
 		comment = request.get_json()["comment"].strip()
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		cur.execute("INSERT INTO entries(title,comment,username)VALUES(%s, %s, %s);",(title, comment,username))
 		connection.commit()
-		return jsonify({'message':'entry successfully posted!!'}), 200
+		return jsonify({'message':'entry successfully posted!!'})
 
-	@entries.route('/entries', methods=['GET'])
 	@require_token
-	def view_all():
+	def get(self):
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']	
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"'")
@@ -51,14 +51,15 @@ class Entries:
 			if entry_id not in entry_output:
 				entry_output.update({entry_id:{"username":username, "title":title, "comment":comment, "time":time}})
 		if len (result) == 0:
-			return jsonify ({'message':'you have no comments yet'}), 200
+			return jsonify ({'message':'you have no comments yet'})
 		else:
 			connection.commit()
-			return jsonify(entry_output),200
+			return jsonify(entry_output)
 
-	@entries.route('/entries/<int:entryID>', methods=['GET'])
+class Entry(Resource):
+		
 	@require_token
-	def view_one(entryID):
+	def get(self, entryID):
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		cur.execute("SELECT COUNT(1) FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
@@ -72,12 +73,13 @@ class Entries:
 			entry_output = {"entry_id":entry_id, "username":username, "title":title, "comment":comment, "time":time }
 			return jsonify(entry_output)
 		else:
-			return jsonify({'message':'wrong entry,the comment does not exist!!'}), 404
+			return jsonify({'message':'wrong entry,the comment does not exist!!'})
 		connection.commit()
 
-	@entries.route ('/entries/<int:entryID>',methods=['PUT'])
-	def modify_entry(entryID):
-		comment = request.get_json()["comment"].strip()#validate length of comment
+
+	@require_token
+	def put(self, entryID):
+		comment = request.get_json()["comment"].strip()
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		today = str(datetime.datetime.today()).split()
@@ -87,21 +89,23 @@ class Entries:
 			if str(result[4]).split()[0] == today[0]:
 				cur.execute("UPDATE entries SET comment='"+comment+"' WHERE entryID='"+str(entryID)+"'")
 			else:
-				return jsonify({'message':'not successfull, the comment is overdue'}),403
+				return jsonify({'message':'not successfull, the comment is overdue'})
 		else:
-			return jsonify({'message':'enrtry does not exist!!'}) ,404
+			return jsonify({'message':'enrtry does not exist!!'})
 		connection.commit()
-		return jsonify({'message':'entry successfully modified!!'}), 200
+		return jsonify({'message':'entry successfully modified!!'})
 
-	@entries.route('/entries/<int:entryID>', methods=['DELETE'])
-	def delete_entry(entryID):
+	def delete(self, entryID):
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
 		cur.execute("SELECT * FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		result = cur.fetchone()
 		if result is None:
-			return jsonify({'message':'this comment does exist'}), 404
+			return jsonify({'message':'this comment does exist'})
 		else:
 			cur.execute("DELETE FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 		connection.commit()
-		return jsonify({'message':'entry successfully deleted!!'}), 200
+		return jsonify({'message':'entry successfully deleted!!'})
+
+API.add_resource(Entries, '/entries')
+API.add_resource(Entry, '/entries/<int:entryID>')
