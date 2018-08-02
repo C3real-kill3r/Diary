@@ -8,8 +8,6 @@ import json
 from __init__ import *
 
 class Test_Entries(unittest.TestCase):
-    def setUP(self):
-        self.app=app.test_client()
 
     def test_home(self):
         with app.test_client() as h:
@@ -32,13 +30,13 @@ class Test_Entries(unittest.TestCase):
         with app.test_client() as cs:
             response = cs.get('/api/v2/entries/1',)
             kk = cs.get('/ap1/v2/entries/1')
-            self.assertEqual(response.status_code, 500)
+            self.assertEqual(response.status_code, 403)
             self.assertEqual(kk.status_code, 404)
 
     def test_modify_entry(self):
         with app.test_client() as me:
             self.assertEqual(me.get('/ap1/v2/entries').status_code, 404)
-            self.assertEqual(me.get('/api/v2/entries/1').status_code, 500)
+            self.assertEqual(me.get('/api/v2/entries/1').status_code, 403)
 
 if __name__ == '__main__':
     unittest.main()

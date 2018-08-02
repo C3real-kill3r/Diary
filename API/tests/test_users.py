@@ -9,7 +9,6 @@ from __init__ import *
 
 class Test_Users(unittest.TestCase):
 
-
     def test_wrong_method(self):
         self.assertEqual(app.test_client().post('/api/v2/').status_code, 405)
 
@@ -20,11 +19,11 @@ class Test_Users(unittest.TestCase):
             self.assertEqual(response.status_code, 405)
             self.assertEqual(r.post('/api/v2/auth/signup', json={"fname":"brian", "lname":"ryb","username":"brybz",\
                 "email":"brybzi@gmail.com",\
-                "password":"1234", "confirm password":"1234"}).status_code, 500) 
+                "password":"1234", "confirm password":"1234"}).status_code, 409) 
 
     def test_login(self):
         logn = app.test_client()
-        self.assertEqual(logn.post('/api/v2/auth/login', json={"username":"brybz", "password":"1234",}).status_code, 500)
+        self.assertEqual(logn.post('/api/v2/auth/login', json={"username":"brybz", "password":"1234",}).status_code, 200)
 
     def test_home(self):
         with app.test_client() as h:
@@ -46,7 +45,7 @@ class Test_Users(unittest.TestCase):
     def test_comment_view_one(self):
         with app.test_client() as cs:
             response= cs.get('/api/v2/entries/1',)
-            self.assertEqual(response.status_code, 500)
+            self.assertEqual(response.status_code, 403)
 
 if __name__ == '__main__':
     unittest.main()

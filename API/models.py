@@ -1,7 +1,11 @@
 import os
 import psycopg2
 
-connection = psycopg2.connect("dbname='diary' user='postgres' host='localhost' password='cocopine1' port='5432'")
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASS = os.getenv('DB_PASS')
+
+connection = psycopg2.connect(dbname=DB_NAME, user=DB_USER, host='localhost', password=DB_PASS, port='5432')
 cur = connection.cursor()
 
 class Tables():
