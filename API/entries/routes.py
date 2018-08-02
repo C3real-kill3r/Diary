@@ -18,7 +18,7 @@ def require_token(f):
         token = request.headers.get('x-access-token') 
 
         if not token:
-            return jsonify({'message' : 'Token is missing!'}), 403
+            return {'message' : 'Token is missing!'}, 403
 
         return f(*k, **kk)
 
@@ -29,6 +29,7 @@ class Entries(Resource):
 	@require_token
 	def post(self):
 		title = request.get_json()["title"].strip() 
+
 		comment = request.get_json()["comment"].strip()
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']

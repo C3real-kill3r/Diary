@@ -1,7 +1,11 @@
 from flask import Flask
+import os
+import sys
 
+sys.path.insert(0, os.path.abspath(".."))
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "brylee"
+
 
 from users.routes import users
 from entries.routes import entries

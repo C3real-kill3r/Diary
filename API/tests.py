@@ -1,11 +1,10 @@
-#from flask import request, json
+import os,sys
+
+#sys.path.insert(0, os.path.abspath(".."))
+
+from flask import request
 import unittest
 import json
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath(".."))
-
 from __init__ import app
 
 class Test_Entries(unittest.TestCase):
@@ -18,6 +17,18 @@ class Test_Entries(unittest.TestCase):
         login_response = self.client.post("api/v2/auth/login", data=data, headers=header)
         response_data = login_response.get_json()
         return response_data["message"]["token"]
+
+    def test_signup(self):
+        data = json.dumps({"fname":"brian",
+            "lname":"ryb",
+            "username":"brybz",
+            "email":"brybzi@gmail.com",
+            "password":"Zi!123",
+            "confirm password":"Zi!123"})
+        header = {"content-type" : "application/json"}
+        response = self.client.post("api/v2/auth/signup", data=data, headers=header)
+        response_data = response.get_json()
+        self.assertEqual(response.status_code, 200)
 
     def test_view_all_valid(self):
         token = self.login_user()
@@ -49,7 +60,6 @@ class Test_Entries(unittest.TestCase):
         response_data = response.get_json()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response_data["message"], "entry successfully posted!!")
-
 
     def test_comment_view_one(self):
         token = self.login_user()

@@ -10,6 +10,7 @@ cur = connection.cursor()
 
 class Tables():
 	#creates table in the database
+
 	def create_tables():
 		with connection.cursor() as cursor:
 			cursor.execute ("CREATE TABLE IF NOT EXISTS entries (entryID serial PRIMARY KEY,\
