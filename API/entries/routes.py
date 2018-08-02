@@ -45,7 +45,7 @@ class Entries:
 		entry_output = {}
 		for row in result:
 			entry_id = row[0]
-			title = row[1]
+			title = row[2]
 			time = row[4]
 			comment = row[3]
 			if entry_id not in entry_output:
@@ -57,6 +57,7 @@ class Entries:
 			return jsonify(entry_output),200
 
 	@entries.route('/entries/<int:entryID>', methods=['GET'])
+	@require_token
 	def view_one(entryID):
 		data = jwt.decode(request.headers.get('x-access-token'), app.config['SECRET_KEY'])
 		username = data['username']
