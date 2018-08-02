@@ -14,17 +14,17 @@ download the zip folder into your computer.
 
 ### Prerequisites
 
-*Postman
-*Python (preferably version 3.6 or higher)
-*Python IDE (preferably visual studio code or sublime)
-*PostgresSQL
-*Virtual environment
+* Postman
+* Python (preferably version 3.6 or higher)
+* Python IDE (preferably visual studio code or sublime)
+* PostgresSQL
+* Virtual environment
 
 ### Installing
-*extract the files from the zip folder into another folder within the computer.
+* extract the files from the zip folder into another folder within the computer.
 
-*open command prompt(in windows) or terminal (in Linux) and move to the folder directory containing the app.
-*on the cmd; create virtual environment by typing:
+* open command prompt(in windows) or terminal (in Linux) and move to the folder directory containing the app.
+* on the cmd; create virtual environment by typing:
 **for windows
 ```
 C:\>virtualenv env
@@ -42,7 +42,7 @@ activate virtual env
 ```
 $source env/bin/activate
 ```
-*install flask in the virtual environment:
+* install flask in the virtual environment:
 **for windows
 ```
 (env)C:\>pip install flask
@@ -51,7 +51,7 @@ $source env/bin/activate
 ```
 $sudo pip3 install virtualenv
 ```
-*pip install the requirements in your virtual environment
+* pip install the requirements in your virtual environment
 ```
 pip install -r requirements.txt
 ```
@@ -59,27 +59,28 @@ pip install -r requirements.txt
 
 After successful installation of the app;
 **run the app by typing in the command prompt/terminal:
-*windows
+* windows
 ```
 (env)C:\>python diary.py 
 ```
-*linux
+* linux
 ```
 $sudo python3 diary.py
 ```
-*open postgresSQl and create a database called "diary"
+* open postgresSQl and create a database called "diary"
 
-*create environment variables
+* create environment variables
+
 ```
 set DB_NAME= enter your database name
 set DB_USER= enter your database username
 set DB_PASS= enter your database password
 ```
-*open postman
+* open postman
 
-*press the run in postman button to populate your postman.
+* press the run in postman button to populate your postman.
 
-*if the variable environment doesn't get automatically configured in your post man;
+* if the variable environment doesn't get automatically configured in your post man;
 
 1.type this on your login route under test;
 ```
@@ -89,31 +90,31 @@ postman.setEnvironmentVariable("token",data.message.token);
 2. go to settings and select manage environment
 3. add envronment, on key column write token but leave the value column empty
 
-*enter the home url in postman to get started
+* enter the home url in postman to get started
 ```
 http://127.0.0.1:5000/api/v2/
 ```
-*register a new user into the system
+* register a new user into the system
 ```
 http://127.0.0.1:5000/api/v2/register
 ```
-*login the registered user in the system
+* login the registered user in the system
 ```
 http://127.0.0.1:5000/api/v2/login
 ```
-*type as many entries as you'd prefer in the diary
+* type as many entries as you'd prefer in the diary
 ```
 http://127.0.0.1:5000/api/v2/make_entry{{token}}
 ```
-*view all entries you have posted
+* view all entries you have posted
 ```
 http://127.0.0.1:5000/api/v2/get_all{{token}}
 ```
-*modify an entry by typing the entry number in place of entryID
+* modify an entry by typing the entry number in place of entryID
 ```
 http://127.0.0.1:5000/api/v2/modify_entry/<int:entryID>{{token}}
 ```
-*delete an entry by typing the entry number in place of entryID
+* delete an entry by typing the entry number in place of entryID
 ```
 http://127.0.0.1:5000/api/v2/delete_entry/<int:entryID>{{token}}
 ```
