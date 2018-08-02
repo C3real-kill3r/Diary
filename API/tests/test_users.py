@@ -3,6 +3,7 @@ import os,sys
 sys.path.insert(0, os.path.abspath(".."))
 
 import unittest
+import psycopg2
 import json
 from __init__ import *
 
