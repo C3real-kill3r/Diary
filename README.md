@@ -101,39 +101,6 @@ postman.setEnvironmentVariable("token",data.message.token);
 | **api/v2/entries/<entry_Id>** | Modify an entry |PUT |
 | **api/v2/entries/<entry_Id>** | Deletes an entry |DELETE |
 
-* enter the home url in postman to get started
-```
-http://127.0.0.1:5000/api/v2/
-```
-* register a new user into the system
-```
-http://127.0.0.1:5000/api/v2/register
-```
-* login the registered user in the system
-```
-http://127.0.0.1:5000/api/v2/login
-```
-* type as many entries as you'd prefer in the diary
-```
-http://127.0.0.1:5000/api/v2/make_entry{{token}}
-```
-* view all entries you have posted
-```
-http://127.0.0.1:5000/api/v2/get_all{{token}}
-```
-* modify an entry by typing the entry number in place of entryID
-```
-http://127.0.0.1:5000/api/v2/modify_entry/<int:entryID>{{token}}
-```
-* delete an entry by typing the entry number in place of entryID
-```
-http://127.0.0.1:5000/api/v2/delete_entry/<int:entryID>{{token}}
-```
-*logout from the diary
-```
-http://127.0.0.1:5000/api/v2/logout
-```
-
 
 ## Built With
 
