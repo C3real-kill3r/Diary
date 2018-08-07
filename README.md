@@ -92,7 +92,7 @@ postman.setEnvironmentVariable("token",data.message.token);
 
 
 | Endpoint | **Functionality** | **Method** |
-| ------ | ------ |------ |
+| ------------------ | ------ |------ |
 | **api/v2/auth/signup** | Registers a new user |POST |
 | **api/v2/auth/login** | logs in a registered user |POST |
 | **api/v2/entries** | Fetch all entries |GET |
