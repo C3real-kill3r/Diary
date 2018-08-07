@@ -9,7 +9,6 @@ install:
   - pip install pytest-cov
   - pip install coveralls
 before_script:
-  - cd API/tests
   - psql -c 'create database diary;' -U postgres
 script:
   - pytest
