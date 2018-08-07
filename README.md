@@ -92,14 +92,14 @@ postman.setEnvironmentVariable("token",data.message.token);
 
 
 | Endpoint | **Functionality** | **Method** |
-| ------------------ | ------ |------ |
+| ------ | ------ |------ |
 | **api/v2/auth/signup** | Registers a new user |POST |
 | **api/v2/auth/login** | logs in a registered user |POST |
 | **api/v2/entries** | Fetch all entries |GET |
-| **api/v2/entries/<entryId>** | Fetch a single entry |GET |
+| **api/v2/entries/<entry_Id>** | Fetch a single entry |GET |
 |**api/v2/entries**| Create an entry |POST |
-| **api/v2/entries/<entryId>** | Modify an entry |PUT |
-| **api/v2/entries/<entryId>** | Deletes an entry |DELETE |
+| **api/v2/entries/<entry_Id>** | Modify an entry |PUT |
+| **api/v2/entries/<entry_Id>** | Deletes an entry |DELETE |
 
 * enter the home url in postman to get started
 ```
