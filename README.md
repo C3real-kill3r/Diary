@@ -90,6 +90,17 @@ postman.setEnvironmentVariable("token",data.message.token);
 2. go to settings and select manage environment
 3. add envronment, on key column write token but leave the value column empty
 
+
+| Endpoint | **Functionality** | **Method** |
+| ------ | ------ |------ |
+| **api/v2/auth/signup** | Registers a new user |POST |
+| **api/v2/auth/login** | logs in a registered user |POST |
+| **api/v2/entries** | Fetch all entries |GET |
+| **api/v2/entries/<entryId>** | Fetch a single entry |GET |
+|**api/v2/entries**| Create an entry |POST |
+| **api/v2/entries/<entryId>** | Modify an entry |PUT |
+| **api/v2/entries/<entryId>** | Deletes an entry |DELETE |
+
 * enter the home url in postman to get started
 ```
 http://127.0.0.1:5000/api/v2/
