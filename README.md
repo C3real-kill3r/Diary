@@ -58,15 +58,7 @@ pip install -r requirements.txt
 ## Running the app
 
 After successful installation of the app;
-**run the app by typing in the command prompt/terminal:
-* windows
-```
-(env)C:\>python diary.py 
-```
-* linux
-```
-$sudo python3 diary.py
-```
+
 * open postgresSQl and create a database called "diary"
 
 * create environment variables
@@ -76,6 +68,9 @@ set DB_NAME= enter your database name
 set DB_USER= enter your database username
 set DB_PASS= enter your database password
 ```
+
+* run the ```run.py``` file in your virtual environment. 
+
 * open postman
 
 * press the run in postman button to populate your postman.
