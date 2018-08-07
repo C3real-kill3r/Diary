@@ -97,6 +97,10 @@ postman.setEnvironmentVariable("token",data.message.token);
 | **api/v2/entries/<entry_Id>** | Deletes an entry |DELETE |
 
 
+## Heroku link
+
+* [Diary app](https://diary234.herokuapp.com/api/v2/) - Launching the app on heroku
+
 ## Built With
 
 * [Sublime Text](http://www.sublimetext.com/) - The python text editor used
