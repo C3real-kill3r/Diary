@@ -73,7 +73,7 @@ set DB_PASS= enter your database password
 
 * open postman
 
-* press the run in postman button to populate your postman.
+* press the ```Run in Postman``` button to populate your postman.
 
 * if the variable environment doesn't get automatically configured in your post man;
 
