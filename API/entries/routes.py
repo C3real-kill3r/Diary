@@ -68,7 +68,7 @@ class Entry(Resource):
 			cur.execute("SELECT * FROM entries WHERE username='"+username+"' and entryID='"+str(entryID)+"'")
 			result = cur.fetchone()
 			entry_id = result[0]
-			title = result[1]
+			title = result[2]
 			time = result[4]
 			comment = result[3]
 			entry_output = {"entry_id":entry_id, "username":username, "title":title, "comment":comment, "time":time }

@@ -104,7 +104,7 @@ class User_details(Resource):
 		time = result[6]
 		user_details = {"user_id":user_id, "fname":fname, "lname":lname, "username":username, "email":email, "password":password, "time":time }
 		if result is not None:
-			return jsonify (user_details), 200
+			return jsonify(user_details)
 		else:
 			return jsonify({'message':'user does not exist in the database'})
 		connection.commit()
