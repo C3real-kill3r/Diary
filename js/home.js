@@ -1,6 +1,6 @@
 // fetch for index page
 let Message = document.getElementById('welcome');
-const WelcomeUrl = 'https://diary234.herokuapp.com/api/v2/';
+const WelcomeUrl = 'https://diary234.herokuapp.com/api/v2';
 
 fetch(`${WelcomeUrl}`)
     .then((response)=>{

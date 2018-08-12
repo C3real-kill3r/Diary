@@ -2,13 +2,13 @@
 <html>
     <head>
         <title>Registration Form</title>
-        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <link href="style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <header>
             <div class="row">
                 <div class="logo">
-                    <img src="images/logo4.png">
+                    <img src="logo4.png">
                 </div>
                 <ul class="main-nav">
                     <li><a href="index.html">HOME</a></li>
@@ -17,19 +17,20 @@
             </div>
         </header> 
             <div class="registration">
-    <img src="images/avatar.png" class="avatar">
+    <img src="avatar.png" class="avatar">
         <h6>Register</h6>
+        <div id="regResponse"><p class="res"><small></small></p></div>
         <form id="Register">
-            <input type="text" id="fname" placeholder="Enter Your First name" required>
-            <input type="text" id="lname" placeholder="Enter Your Last name" required>
-            <input type="text" id="username" placeholder="Enter Username" required>
-            <input type="email" id="email" placeholder="Enter Email Adress" required>
+            <input type="text" id="fname" placeholder="Enter Your First name">
+            <input type="text" id="lname" placeholder="Enter Your Last name">
+            <input type="text" id="username" placeholder="Enter Username">
+            <input type="email" id="email" placeholder="Enter Email Adress">
             <input type="password" id="password" placeholder="Enter Password" required>
-            <input type="password" id="confirm password" placeholder="Confirm Your Password" required>
-            <input type="submit"  value="Register">
+            <input type="password" id="con_password" placeholder="Confirm Your Password" required>
+            <input type="submit" id="RegButton" value="Register">
         </form>
     
     </div>
-    <script src="js/register.js"></script>
+    <script src="register.js"></script>
     </body>
 </html>

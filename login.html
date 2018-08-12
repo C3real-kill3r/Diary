@@ -1,12 +1,12 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 <body>
     <header>
         <div class="row">
                 <div class="logo">
-                    <img src="images/logo4.png">
+                    <img src="logo4.png">
                 </div>
                 <ul class="main-nav">
                     <li><a href="index.html">HOME</a></li>
@@ -15,17 +15,18 @@
             </div>
     </header>
     <div class="loginbox">
-    <img src="images/avatar.png" class="avatar">
+    <img src="avatar.png" class="avatar">
         <h1>Login</h1>
-        <form>
+        <div id="logResponse"><p class="res"><small></small></p></div>
+        <form id="LoginForm">
             <input type="text" id="username" placeholder="Enter Username" required>
             <input type="password" id="password" placeholder="Enter Password" required>
-            <input type="submit" onclick="loginPost()" value="Login">
+            <input type="submit" value="Login">
             <p>Don't have an account?<a href="registration.html">Register</a></p>
         </form>
         
     </div>
-    <script src="js/login.js"></script>
+    <script src="login.js"></script>
 </body>
 </head>
 </html>

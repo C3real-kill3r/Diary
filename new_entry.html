@@ -2,12 +2,12 @@
 <html>
     <head>
         <title>My Diary</title>
-        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <link href="style.css" rel="stylesheet" type="text/css">
     <body>
     <header>
         <div class="row" id="head">
                 <div class="logo">
-                    <img src="images/logo4.png">
+                    <img src="logo4.png">
                 </div>
                 <ul class="main-nav">
                     <li><a href="index.html">HOME</a></li>
@@ -18,31 +18,32 @@
         </div>
         <div class="new_entry">
         <h3>Put it Down</h3>
-        <form>
+        <div id="entryPost">
+        <p class="entryMessage"></p>
+        </div>
+        <form id="entryNew" >
+                <br><br>
                 <label>
                  date:
                 <input type="date" name="date" required>
                 </label>
                 <br><br>
                  <label>
-                time:
-                <input type="time" name="date" required>
-                </label><br><br>
                 <label>
                 Title:
-                <input type="text" name="title" required>
+                <input type="text" id="title" required>
                 </label><br><br>
                 <label>
                 My note:<br>
-                <textarea rows="220" cols="150" required>
+                <textarea rows="220" cols="150" id="comment" required>
                 </textarea>
                 </label>
                 <br><br>
-                <input type="submit"  name="" value="Post it!">
+                <input type="submit" value="Post it!">
         </form>
          </div>
     </header>
-        
+    <script src="new_entry.js"></script>    
     </body>
     </head>
 </html>
